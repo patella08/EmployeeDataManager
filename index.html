@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,72 +10,74 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
   <div id="wrapper">
-      <h1>Employee Data Manager</h1>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          Table
-        </div>
-        <table class="table">
-          <tr>
-            <th>Employee Name</th>
-            <th>Rate</th>
-            <th>Start Date</th>
-            <th>Months Worked</th>
-            <th>Monthly Rate $</th>
-            <th>Total Billed $</th>
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td>$50.00</td>
-            <td>1/1/1970</td>
-            <td>100</td>
-            <td>$50,000</td>
-            <td>$1,000,000</td>
-          </tr>
-        </table>
+    <h1>Employee Data Manager</h1>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Table
       </div>
-      <br>
-      <div class="panel panel-primary">
+      <table id="table" class="table">
+        <tr>
+          <th>Employee Name</th>
+          <th>Role</th>
+          <th>Start Date</th>
+          <th>Months Worked</th>
+          <th>Monthly Rate $</th>
+          <th>Total Billed $</th>
+        </tr>
+        <tr>
+          <td>John Doe</td>
+          <td>Application Developer</td>
+          <td>1/1/1970</td>
+          <td>100</td>
+          <td>$50,000</td>
+          <td>$1,000,000</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div class="panel panel-primary">
       <div class="panel-heading">Add Employee</div>
       <div class="panel-body">
-          <!-- form input -->
-          <!-- form-inline: lines all the fields / inputs up in one line ... media-center: centers the form in the page header area -->
-          <!-- class="form-inline media-center" -->
-          <form>   
-            <div class="form-group">
+        <!-- form input -->
+        <!-- form-inline: lines all the fields / inputs up in one line ... media-center: centers the form in the page header area -->
+        <!-- class="form-inline media-center" -->
+        <form id="form">
+          <div class="form-group">
 
-              <!-- Label for input field -->
-              <label for="name-input">Employee Name </label>
-              <!-- Input field for name -->
-              <input type="text" name="name-input" id="name-input" class="form-control">
-              <!-- Label for input field -->
-              <label for="role-input">Role </label>
-              <!-- Input field for name -->
-              <input type="text" name="role-input" id="role-input" class="form-control">
-              <!-- Label for input field -->
-              <label for="start-date-input">Start Date (DD/MM/YY - ex: 01/01/89)</label>
-              <!-- Input field for name -->
-              <input type="text" name="start-date-input" id="start-date-input" class="form-control">
-              <!-- Input field for name -->
-              <label for="monthly-rate-input">Monthly Rate </label>
-              <!-- Input field for name -->
-              <input type="text" name="monthly-rate-input" id="monthly-rate-input" class="form-control">
-              
-              <!-- button to submit the input for a new button -->
-              <button type="submit" class="btn button-submit" id="submit-btn">Submit</button>  
+            <!-- Label for input field -->
+            <label for="name-input">Employee Name </label>
+            <!-- Input field for name -->
+            <input type="text" name="name-input" id="name-input" class="form-control">
+            <!-- Label for input field -->
+            <label for="role-input">Role </label>
+            <!-- Input field for name -->
+            <input type="text" name="role-input" id="role-input" class="form-control">
+            <!-- Label for input field -->
+            <label for="start-date-input">Start Date (DD/MM/YY - ex: 01/01/89)</label>
+            <!-- Input field for name -->
+            <input type="text" name="start-date-input" id="start-date-input" class="form-control">
+            <!-- Input field for name -->
+            <label for="monthly-rate-input">Monthly Rate </label>
+            <!-- Input field for name -->
+            <input type="text" name="monthly-rate-input" id="monthly-rate-input" class="form-control">
 
-            </div>
-           </form>
+            <!-- button to submit the input for a new button -->
+            <button type="submit" class="btn button-submit" id="submit-btn">Submit</button>
 
-      </div>   
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
   <!-- Javascript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
   <script src="assets/javascript/employeeData.js"></script>
 </body>
+
 </html>
