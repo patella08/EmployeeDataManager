@@ -11,6 +11,7 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
+var initialized = false;
 
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -56,12 +57,50 @@ function calculateMonthsWorked(start) {
 	var startDate = moment(start);
 	// initialize momentjs now date
 	var todaysDate = moment();
-	return todaysDate.diff(startDate, 'months', true);
+	return Math.floor(
+		todaysDate.diff(startDate, 'months', true)
+	);
 }
+
+function calculateTotalBilled(months, rate) {
+	var parsedRate = parseFloat(rate.replace(',', ''))
+	return months * parsedRate
+}
+
+// populate new table rows on row added
+database.ref('employees').orderByChild('dateAdded').limitToLast(1).on('child_added', function(data) {
+	// exit if not initialized
+	if (!initialized) return;
+	console.log('child was added')
+	// get table entry array
+	var row = data.val()
+	// deconstruct row properties
+	var name = row.name;
+	var role = row.role;
+	var start = row.startDate;
+	var monthlyRate = row.monthlyRate;
+	// calculate months worked
+	var monthsWorked = calculateMonthsWorked(start);
+	// calculate total billed
+	var billed = calculateTotalBilled(monthsWorked, monthlyRate)
+	var rowHtml = createTableRow(
+		name,
+		role,
+		start,
+		monthsWorked,
+		monthlyRate,
+		billed
+	);
+	// push new row to table
+	$('#table').append(rowHtml)
+})
+
 
 // populate table on page load
 database.ref('employees').orderByChild('dateAdded').once('value', function(data) {
-	console.log('ran the once')
+	// set initialized
+	initialized = true;
+	console.log('page was initialized')
 	let fragment = '';
 	// get rows from firebase row entries
 	var rows = Object.values(data.val())
@@ -73,11 +112,9 @@ database.ref('employees').orderByChild('dateAdded').once('value', function(data)
 		var start = row.startDate;
 		var monthlyRate = row.monthlyRate;
 		// calculate months worked
-		var today = new Date();
-		var todayDate = today.getDate();
-		var monthsWorked = 10;
+		var monthsWorked = calculateMonthsWorked(start);
 		// calculate total billed
-		var billed = monthsWorked * monthlyRate;
+		var billed = calculateTotalBilled(monthsWorked, monthlyRate)
 		// create row and append to fragment
 		fragment += createTableRow(
 			name,
@@ -90,32 +127,4 @@ database.ref('employees').orderByChild('dateAdded').once('value', function(data)
 	}
 	// add fragment to table
 	$('#table').append(fragment)
-})
-
-// populate new table rows on row added
-database.ref('employees').orderByChild('dateAdded').limitToLast(1).on('child_added', function(data) {
-	// get table entry array
-	var rows = Object.values(data.val())
-	// get first and only entry in rows
-	var row = rows[0]
-	// deconstruct row properties
-	var name = row.name;
-	var role = row.role;
-	var start = row.startDate;
-	var monthlyRate = row.monthlyRate;
-	var billed = 50;
-	// get months worked
-	var today = new Date();
-	var todayDate = today.getDate();
-	var monthsWorked = 10;
-	var rowHtml = createTableRow(
-		name,
-		role,
-		start,
-		monthsWorked,
-		monthlyRate,
-		billed
-	)
-	// push new row to table
-	$('#table').append(rowHtml)
 })
